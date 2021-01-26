@@ -2,15 +2,22 @@ package main.java.ex5;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static Path path = new File("./main/java/ex5/strings.txt").toPath();
     public static void main(String[] args) {
-        String filename = "float_file.txt";
-        System.out.println("сумма прочитанных чисел: " + sumOfValues(filename));//solution 4
-        solution5();
+//        String filename = "float_file.txt";
+//        System.out.println("сумма прочитанных чисел: " + sumOfValues(filename));//solution 4
+//        solution5();
+        solution6a();
+        solution6b();
+        solution6c();
 
         //упражнение 7. Первый вариант предпочтительней, т.к. если во время выполнения метод выбросит исключение,
         //например, во время вызова
@@ -64,7 +71,7 @@ public class Main {
         Scanner in = null;
         PrintWriter out = null;
         try {
-            in = new Scanner(Paths.get("C:\\Code\\exercises\\src\\main\\java\\ex5\\strings.txt"));
+            in = new Scanner(Paths.get("D:\\Code\\exercises\\src\\main\\java\\ex5\\strings.txt"));
             out = new PrintWriter(file);
             out.write("start");
             while (in.hasNextLine()) {
@@ -84,11 +91,51 @@ public class Main {
     }
 
     /**
-     * 6. Section 5.1.6, “The finally Clause” (page 189) has an example of a broken try
-     * statement with catch and finally clauses. Fix the code with (a) catching the
-     * exception in the finally clause, (b) a try/catch statement containing a
-     * try/finally statement, and (c) a try-with-resources statement with a catch
-     * clause.
-     =
+     * catching the exception in the finally clause
      */
+    public static void solution6a() {
+        BufferedReader in = null;
+        try {
+            in = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            System.err.println("Caught IOException: " + ex.getMessage());
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * a try/catch statement containing a
+     *      * try/finally statement
+     */
+    public static void solution6b() {
+        BufferedReader in = null;
+        try {
+            in = Files.newBufferedReader(path, StandardCharsets.UTF_8);
+            try {
+                in.close();
+            } finally {
+                System.out.println("finally block b");
+            }
+        } catch (IOException ex) {
+            System.err.println("Caught IOException: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * a try-with-resources statement with a catch
+     *      * clause.
+     */
+    public static void solution6c() {
+        try (BufferedReader in = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+        } catch (IOException ex) {
+            System.err.println("Caught IOException: " + ex.getMessage());
+        }
+    }
 }
