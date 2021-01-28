@@ -2,6 +2,7 @@ package main.java.ex8;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -39,8 +40,8 @@ import java.util.stream.Stream;
  */
 public class Main {
     public static void main(String[] args) {
-//        System.out.println(solution5("solution"));
-        System.out.println(solution6("some string"));
+        System.out.println(solution5("solution"));
+        System.out.println(solution6("somestring"));
     }
 
     /**
@@ -51,11 +52,17 @@ public class Main {
     }
 
     /**
-     * проверяет является ли строка словом, состоящим из букв
+     * проверяет состоит ли строка только из букв
+     * если строка только из букв, то вернется true
      */
     private static boolean solution6(String s) {
-        codePoints(s).forEach(s1 -> System.out.println(s1));
-        return true;
+        List<String> collect = codePoints(s)
+                .filter(s1 -> {
+                    System.out.println(s1);
+                    return !Character.isAlphabetic(s1.charAt(0));
+                })
+                .collect(Collectors.toList());
+        return collect.isEmpty();
     }
 
     private static void solution7() {
