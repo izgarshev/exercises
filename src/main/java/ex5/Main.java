@@ -14,10 +14,10 @@ public class Main {
     public static void main(String[] args) {
 //        String filename = "float_file.txt";
 //        System.out.println("сумма прочитанных чисел: " + sumOfValues(filename));//solution 4
-//        solution5();
-        solution6a();
-        solution6b();
-        solution6c();
+        solution5();
+//        solution6a();
+//        solution6b();
+//        solution6c();
 
         //упражнение 7. Первый вариант предпочтительней, т.к. если во время выполнения метод выбросит исключение,
         //например, во время вызова
@@ -67,11 +67,11 @@ public class Main {
     }
 
     private static void solution5() {
-        File file = new File("output.txt");
+        File file = new File("src/main/java/ex5/output.txt");
         Scanner in = null;
         PrintWriter out = null;
         try {
-            in = new Scanner(Paths.get("D:\\Code\\exercises\\src\\main\\java\\ex5\\strings.txt"));
+            in = new Scanner(Paths.get("src/main/java/ex5/strings.txt"));
             out = new PrintWriter(file);
             out.write("start");
             while (in.hasNextLine()) {

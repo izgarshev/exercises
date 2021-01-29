@@ -1,11 +1,8 @@
 package main.java.ex7;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 1. Implement the “Sieve of Erathostenes” algorithm to determine all prime numbers

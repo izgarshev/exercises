@@ -1,7 +1,8 @@
 package main.java.ex8;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -42,6 +43,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(solution5("solution"));
         System.out.println(solution6("somestring"));
+        solution7();
     }
 
     /**
@@ -57,16 +59,48 @@ public class Main {
      */
     private static boolean solution6(String s) {
         List<String> collect = codePoints(s)
-                .filter(s1 -> {
-                    System.out.println(s1);
-                    return !Character.isAlphabetic(s1.charAt(0));
-                })
+                .filter(s1 -> !Character.isAlphabetic(s1.charAt(0)))
                 .collect(Collectors.toList());
         return collect.isEmpty();
     }
 
     private static void solution7() {
+        try (Scanner scanner = new Scanner(Path.of("src/main/java/ex7/text.txt"));
+             Scanner scanner2 = new Scanner(Path.of("src/main/java/ex7/text.txt"))) {
+            Stream<String> words = scanner.tokens();
+            final int[] count = {0};
+            List<String> result = new ArrayList<>();
+            words.forEach(s -> {
+                if (solution6(s)) {
+                    if (count[0] < 100) {
+                        result.add(s);
+                    }
+                    count[0]++;
+                    System.out.println("count: " + count[0]);
+                }
+            });
+            for (int i = 0; i < result.size(); i++) {
+                System.out.println(i + " " + result.get(i));
+            }
+            System.out.println(result);
 
+            //вывод первых десяти часто встречающихся слов
+            Stream<String> wordz = scanner2.tokens();
+            Map<String, Integer> map = new HashMap<>();
+            wordz.forEach(s -> map.merge(s.toLowerCase(), 1, Integer::sum));
+            final int[] i = {0};
+            map.entrySet()
+                    .stream()
+                    .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                    .forEach(stringIntegerEntry -> {
+                        if (i[0] < 10) {
+                            System.out.println(stringIntegerEntry);
+                        }
+                        i[0]++;
+                    });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Stream<String> codePoints(String s) {
