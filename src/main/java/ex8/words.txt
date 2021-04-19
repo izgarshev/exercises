@@ -1,0 +1,37 @@
+Preface
+Java is now over twenty years old, and the classic book, Core Java, covers, in
+meticulous detail, not just the language but all core libraries and a multitude of
+changes between versions, spanning two volumes and well over 2,000 pages.
+However, if you just want to be productive with modern Java, there is a much faster,
+easier pathway for learning the language and core libraries. In this book, I don't
+retrace history and don't dwell on features of past versions. I show you the good
+parts of Java as it exists today, with Java 9, so you can put your knowledge to work
+quickly.
+As with my previous "Impatient" books, I quickly cut to the chase, showing you
+what you need to know to solve a programming problem without lecturing about the
+superiority of one paradigm over another. I also present the information in small
+chunks, organized so that you can quickly retrieve it when needed.
+Assuming you are proficient in some other programming language, such as C++,
+JavaScript, Objective C, PHP, or Ruby, with this book you will learn how to become
+a competent Java programmer. I cover all aspects of Java that a developer needs to
+know, including the powerful concepts of lambda expressions and streams. I tell you
+where to find out more about old-fashioned concepts that you might still see in
+legacy code, but I don't dwell on them.
+A key reason to use Java is to tackle concurrent programming. With parallel
+algorithms and threadsafe data structures readily available in the Java library, the
+way application programmers should handle concurrent programming has
+completely changed. I provide fresh coverage, showing you how to use the powerful
+library features instead of error-prone low-level constructs.
+Traditionally, books on Java have focused on user interface programming—but
+nowadays, few developers produce user interfaces on desktop computers. If you
+intend to use Java for server-side programming or Android programming, you will
+be able to use this book effectively without being distracted by desktop GUI code.
+Finally, this book is written for application programmers, not for a college course
+and not for systems wizards. The book covers issues that application programmers
+need to wrestle with, such as logging and working with files—but you won't learn
+how to implement a linked list by hand or how to write a web server.
+I hope you enjoy this rapid-fire introduction into modern Java, and I hope it will
+make your work with Java productive and enjoyable.
+If you find errors or have suggestions for improvement, please visit
+http://horstmann.com/javaimpatient and leave a comment. On that page, you will
+also find a link to an archive file containing all code examples from the book.aeoui

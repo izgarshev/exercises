@@ -1,8 +1,10 @@
 package main.java.ex8;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -38,12 +40,21 @@ import java.util.stream.Stream;
  * 7. Turning a file into a stream of tokens, list the first 100 tokens that are words in the
  * sense of the preceding exercise. Read the file again and list the 10 most frequent
  * words, ignoring letter case.
+ * 8. Find a realistic use for the Collectors.flatMapping method. Consider
+ * some class with a method yielding an Optional. Then group by some
+ * characteristic and, for each group, collect the nonempty optional values by using
+ * flatMapping and Optional.stream.
+ * 9. Read the words from /usr/share/dict/words (or a similar word list) into a
+ * stream and produce an array of all words containing five distinct vowels.
  */
 public class Main {
+    private final static String vowels = "aeiouy";
     public static void main(String[] args) {
 //        System.out.println(solution5("solution"));
-        System.out.println(solution6("somestring"));
+//        System.out.println(solution6("somestring"));
 //        solution7();
+        sol8();
+        sol9();
     }
 
     /**
@@ -114,5 +125,50 @@ public class Main {
         return result.stream();
     }
 
+    /**
+     * Предположим, у нас есть класс Person и класс Address. Для определенного перечня персон есть перечень из n адресов.
+     * Метод flatMapping может использоваться для объединения этих объектов в Map, где ключом будет Person, а значением коллекция Address, принадлежащих персоне.
+     */
+    public static void sol8() {
+        List<Address> addressList = List.of(new Address("Moscow", "Lenina"), new Address("Petersburg", "Pushkina"), new Address("Voronezh", "Sovetskaya"));
+        List<Person> list = List.of(new Person(1, "Sergey", List.of(addressList.get(0), addressList.get(1))), new Person(2, "Oleg", List.of(addressList.get(0), addressList.get(2))));
+        Map<Person, List<Address>> personListMap = list.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.flatMapping(person -> person.getAddresses().stream(), Collectors.toList())));
+        personListMap.forEach((person, addresses) -> System.out.println(person + addresses.toString()));
+    }
 
+    public static void sol9() {
+        try {
+            List<String> strings = main.java.ex7.Main.loadText(new File("src/main/java/ex8/words.txt"));
+            List<String> result = strings.stream().filter(Main::isUniqueVowels).collect(Collectors.toList());
+            System.out.println(result);
+        } catch (IOException e) {
+            System.out.println("Не удалось прочитать файл");
+        }
+    }
+
+    /**
+     * метод проверяет состоит ли строка из 5 уникальных гласных букв
+     */
+    public static boolean isUniqueVowels(String s) {
+        if (s == null || s.length() < 5) {
+            return false;
+        }
+        List<Character> characters = new ArrayList<>();
+        for (char c: vowels.toCharArray()) {
+            characters.add(c);
+        }
+        String lowerCaseString = s.toLowerCase(Locale.ROOT);
+        int count = 0;
+        for (int i = 0; i < lowerCaseString.length(); i++) {
+            for (int j = 0; j < characters.size(); j++) {
+                if (characters.get(j) == lowerCaseString.charAt(i)) {
+                    characters.remove(j);
+                    count++;
+                    if (count == 5) return true;
+                }
+            }
+        }
+        return false;
+    }
 }

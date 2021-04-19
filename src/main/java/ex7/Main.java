@@ -95,7 +95,7 @@ public class Main {
         return occurrences;
     }
 
-    private static List<String> loadText(File filename) throws FileNotFoundException {
+    public static List<String> loadText(File filename) throws FileNotFoundException {
         if (filename == null || !filename.exists()) {
             throw new IllegalArgumentException("Error: filename incorrect");
         }
