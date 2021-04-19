@@ -7,14 +7,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     static Path path = new File("./main/java/ex5/strings.txt").toPath();
     public static void main(String[] args) {
-//        String filename = "float_file.txt";
-//        System.out.println("сумма прочитанных чисел: " + sumOfValues(filename));//solution 4
-        solution5();
+        String filename = "float_file.txt";
+        System.out.println("сумма прочитанных чисел: " + sumOfValues(filename));//solution 4
+//        solution5();
 //        solution6a();
 //        solution6b();
 //        solution6c();
@@ -32,11 +33,11 @@ public class Main {
      * @param filename название файла
      * @return список значений
      */
-    private static ArrayList<Double> readValues(String filename) {
+    private static List<Double> readValues(String filename) {
         if (filename == null || filename.isEmpty()) {
             throw new IllegalArgumentException("filename incorrect");
         }
-        ArrayList<Double> doubles = new ArrayList<>();
+        List<Double> doubles = new ArrayList<>();
         URL url = Main.class.getResource(filename);
         if (url != null) {
             File file = new File(url.getPath());

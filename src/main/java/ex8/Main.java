@@ -41,9 +41,9 @@ import java.util.stream.Stream;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println(solution5("solution"));
+//        System.out.println(solution5("solution"));
         System.out.println(solution6("somestring"));
-        solution7();
+//        solution7();
     }
 
     /**
